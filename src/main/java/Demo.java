@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -21,15 +23,38 @@ public class Demo
      */
     public static void main(String[] args)
     {
-        if (args.length < 2)
-        {
-            usage();
-            return;
-        }
+    	try
+    	{
+    		String month = null;
+    		String year = null;
+    		if(args.length > 1)
+    		{
+    			// Get the Command Line Arguments.
+    			month = args[0];
+    			year = args[1];
+    		}
+	        
+	        if((month == null || month.isEmpty()) && (year == null || year.isEmpty() ))
+	        {
+	        	System.out.println("Please enter the month and year. eg: Mar 2015");
+	        	
+	        	try(BufferedReader aBufferedReader = new BufferedReader(new InputStreamReader(System.in)))
+	        	{
+					String anInput = aBufferedReader.readLine();
+					String[] split = anInput.trim().split(" ");
+					if (split.length > 1) 
+					{
+						month = split[0].trim();
+						year = split[1].trim();
+					} 
+					else 
+					{
+						usage();
+					}
+				}
+           }
 
-        // Get the Command Line Arguments.
-        String month = args[0];
-        String year = args[1];
+        System.out.println("The Events for the Month and Year " + month + year + " are fetching.Please wait!!:");
 
         // Create Instance for HTML Parser
         HTMLParser aHtmlParser = new HTMLParser();
@@ -37,6 +62,7 @@ public class Demo
         // Get the Table String Value of all the Pages in a XML Format
         String xmlStringValue = aHtmlParser.getXMLStringValue();
 
+        
         if (xmlStringValue != null && !xmlStringValue.isEmpty())
         {
             // Create Instance for QueryParser
@@ -75,6 +101,11 @@ public class Demo
                 }
             }
         }
+    	}
+    	catch(Exception theException)
+    	{
+    		theException.printStackTrace();
+    	} 
     }
 
     private static void usage()

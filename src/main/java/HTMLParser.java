@@ -26,15 +26,13 @@ import org.jsoup.select.Elements;
  */
 public class HTMLParser
 {
-    private static HTMLParser itsAccess;
-
     private int itsPageCount;
 
     private int itsPageNumber = 1;
 
     private StringBuilder XMLValues = new StringBuilder();
     
-    private static String URL = "";
+    private static String URL = "https://www.elitmus.com/jobs?page=";
 
     /**
      * Default Constructor
@@ -116,7 +114,6 @@ public class HTMLParser
             if (theJobValue == itsPageCount)
             {
                 XMLValues.append("</jobs>");
-                System.out.println(XMLValues.toString());
                 return;
             }
             else
@@ -124,7 +121,7 @@ public class HTMLParser
                 // Create URL Instance
                 url = new URL(URL + theJobValue);
                 URLConnection con = url.openConnection();
-                itsAccess.parseContent(con);
+                parseContent(con);
             }
         }
         catch (Exception e)
@@ -159,7 +156,7 @@ public class HTMLParser
     {
         if (con != null)
         {
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8")))
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream())))
             {
                 StringBuilder aBuilder = new StringBuilder();
 
@@ -211,7 +208,6 @@ public class HTMLParser
                     {
                         // Read the Page Count from the data array.
                         itsPageCount = Integer.parseInt(pageArray[pageArray.length - 3]);
-                        System.out.println("Page Number: " + itsPageCount);
                     }
                 }
 
