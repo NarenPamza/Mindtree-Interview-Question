@@ -7,4 +7,9 @@ Write a program to take “Month, Year” as the input & output the number of ev
 
 
 NOTE:
-The jobs listing on the webpage is organized under 4 columns. The overall jobs listing on the site is structured into multiple webpages. 
+The jobs listing on the webpage is organized under 4 columns. The overall jobs listing on the site is structured into multiple webpages.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+For Running the application:
+Run Demo.java to run the application and follow the instructions.
